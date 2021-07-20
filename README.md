@@ -20,6 +20,6 @@ I add the variables for the configuration as environment variable in cronjob.yam
  
 The cronjob.yaml is scheduled with cron rule:
 
-1 * * * *
+1-59/2 * * * *
 
 
