@@ -1,0 +1,41 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: broadlink-sensor-exporter
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - env:
+            - name: INFLUXDB_HOST
+              value: ''
+            - name: INFLUXDB_PORT
+              value: ''
+            - name: INFLUXDB_USERNAME
+              value: ''
+            - name: INFLUXDB_PASSWORD
+              value: ''
+            - name: INFLUXDB_DATABASE
+              value: ''
+            image: alexxanddr/broadlink-sensor-exporter:latest
+            imagePullPolicy: Always
+            name: broadlink-sensor-exporter
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  schedule: 1 * * * *
+  successfulJobsHistoryLimit: 3
+  suspend: false
